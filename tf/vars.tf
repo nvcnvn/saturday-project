@@ -20,5 +20,13 @@ variable "project_id" {
 
 variable "region" {
   description = "The region the cluster in"
-  default     = "us-central1"
+  default     = "asia-southeast1"
+}
+
+variable "gcp_service_list" {
+  description = "The list of apis necessary for the project"
+  type        = list(string)
+  default = [
+    "container.googleapis.com"
+  ]
 }

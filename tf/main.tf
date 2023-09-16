@@ -32,6 +32,12 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
+resource "google_project_service" "gcp_services" {
+  for_each = toset(var.gcp_service_list)
+  project  = var.project_id
+  service  = each.key
+}
+
 module "gke" {
   source                          = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
   project_id                      = var.project_id
