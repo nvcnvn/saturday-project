@@ -22,3 +22,4 @@ What todo next:
 - Use keyless authentication to make Github Action <> GCP more secure (currently I use a SA key)
 - Grant Github Action only permission to deploy via k8s RBAC
 - Use tf to create alerts rule for deployment failure
+- A local development env using Github Code Space so you don't need to install the required tools (make, kubectl,...)
