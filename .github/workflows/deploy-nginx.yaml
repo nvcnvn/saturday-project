@@ -7,10 +7,10 @@ on:
       - helm/nginx-demo
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Environment to run against'
-        type: environment
+      realRun:
+        description: 'dry run or real, default: dry-run'
         required: true
+        type: boolean
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -38,3 +38,12 @@ jobs:
 
     - id: 'get-pods'
       run: 'kubectl get pods'
+
+    - uses: azure/setup-helm@v3
+      id: install-helm
+
+    - id: helm upgrade
+      env:
+        REAL_RUN: ${{ inputs.realRun }}
+      run: |
+        helm upgrade --install nginx ./helm/nginx-demo --dry-run=${REAL_RUN}
