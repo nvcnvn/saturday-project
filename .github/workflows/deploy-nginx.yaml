@@ -7,9 +7,10 @@ on:
       - helm/nginx-demo
   workflow_dispatch:
     inputs:
-      realRun:
-        description: 'dry run or real, default: dry-run'
+      dryRun:
+        description: 'dry run or real'
         required: true
+        default: true
         type: boolean
 jobs:
   deploy:
@@ -44,6 +45,6 @@ jobs:
 
     - id: helm-upgrade
       env:
-        REAL_RUN: ${{ inputs.realRun }}
+        DRY_RUN: ${{ inputs.dryRun }}
       run: |
-        helm upgrade --install nginx ./helm/nginx-demo --dry-run=${REAL_RUN}
+        helm upgrade --install nginx ./helm/nginx-demo --dry-run=${DRY_RUN:-false}
