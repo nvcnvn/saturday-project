@@ -1,5 +1,20 @@
-This project require to manual setup GKE cluster using terraform first, following the following steps.
+# About this Project:
+```sh
+.
+├── helm # helm chart folder, for now only a demo nginx
+├── Makefile # helpful short cut
+├── .github/workflow # Github Action automation script
+└── tf # terraform code for setup infrastructure
+
+```
+Feature:
+- Use terraform to create GKE Auto Pilot cluster
+- Use Github Action to automate application update when merge (manual trigger also support)
+- Use helm to managed application (currently an demo nginx)
+
 # Setup:
+This project require to manual setup GKE cluster using terraform first, following the following steps.  
+
 ## GCP
 - make sure you have tool like: make, kubectl, helm, gcloud, terraform installed
 - Setup GCP sdk
