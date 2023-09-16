@@ -45,5 +45,4 @@ jobs:
     - id: helm upgrade
       env:
         REAL_RUN: ${{ inputs.realRun }}
-      run: |
-          helm upgrade --install nginx ./helm/nginx-demo --dry-run=${REAL_RUN}
+      run: 'helm upgrade --install nginx ./helm/nginx-demo --dry-run=${REAL_RUN}'
