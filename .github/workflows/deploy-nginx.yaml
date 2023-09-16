@@ -1,0 +1,40 @@
+name: deploy-nginx
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - helm/nginx-demo
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run against'
+        type: environment
+        required: true
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    # Add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    # actions/checkout MUST come before auth
+    - uses: 'actions/checkout@v3'
+
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+    
+    - id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v1'
+      with:
+        cluster_name: 'simple-autopilot-public-cluster'
+        location: 'asia-southeast1'
+
+    - id: 'get-pods'
+      run: 'kubectl get pods'
